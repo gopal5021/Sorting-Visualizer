@@ -7,208 +7,172 @@ let swaps = 0;
 let array = [];
 let originalArray = [];
 
-function updateComparisons(){
-
-    comparisons++;
-
-    document.getElementById("comparisons").innerText =
+function updateComparisons() {
+  comparisons++;
+  document.getElementById("comparisons").innerText =
     "Comparisons: " + comparisons;
 }
 
-function updateSwaps(){
-
-    swaps++;
-
-    document.getElementById("swaps").innerText =
-    "Swaps: " + swaps;
+function updateSwaps() {
+  swaps++;
+  document.getElementById("swaps").innerText = "Swaps: " + swaps;
 }
 
-function resetCounters(){
-
-    comparisons = 0;
-    swaps = 0;
-
-    document.getElementById("comparisons").innerText = "Comparisons: 0";
-    document.getElementById("swaps").innerText = "Swaps: 0";
+function resetCounters() {
+  comparisons = 0;
+  swaps = 0;
+  document.getElementById("comparisons").innerText = "Comparisons: 0";
+  document.getElementById("swaps").innerText = "Swaps: 0";
 }
 
-function swap(el1, el2){
-
-    let temp = el1.style.height;
-    el1.style.height = el2.style.height;
-    el2.style.height = temp;
-
-    updateSwaps();
+function swap(el1, el2) {
+  let temp = el1.style.height;
+  el1.style.height = el2.style.height;
+  el2.style.height = temp;
+  updateSwaps();
 }
 
-function disableSortingBtn(){
-    document.querySelector(".bubbleSort").disabled = true;
-    document.querySelector(".insertionSort").disabled = true;
-    document.querySelector(".mergeSort").disabled = true;
-    document.querySelector(".quickSort").disabled = true;
-    document.querySelector(".selectionSort").disabled = true;
+function disableSortingBtn() {
+  document.querySelector(".bubbleSort").disabled = true;
+  document.querySelector(".insertionSort").disabled = true;
+  document.querySelector(".mergeSort").disabled = true;
+  document.querySelector(".quickSort").disabled = true;
+  document.querySelector(".selectionSort").disabled = true;
 }
 
-function enableSortingBtn(){
-    document.querySelector(".bubbleSort").disabled = false;
-    document.querySelector(".insertionSort").disabled = false;
-    document.querySelector(".mergeSort").disabled = false;
-    document.querySelector(".quickSort").disabled = false;
-    document.querySelector(".selectionSort").disabled = false;
+function enableSortingBtn() {
+  document.querySelector(".bubbleSort").disabled = false;
+  document.querySelector(".insertionSort").disabled = false;
+  document.querySelector(".mergeSort").disabled = false;
+  document.querySelector(".quickSort").disabled = false;
+  document.querySelector(".selectionSort").disabled = false;
 }
 
-function disableSizeSlider(){
-    document.querySelector("#arr_sz").disabled = true;
+function disableSizeSlider() {
+  document.querySelector("#arr_sz").disabled = true;
 }
 
-function enableSizeSlider(){
-    document.querySelector("#arr_sz").disabled = false;
+function enableSizeSlider() {
+  document.querySelector("#arr_sz").disabled = false;
 }
 
-function disableNewArrayBtn(){
-    document.querySelector(".newArray").disabled = true;
+function disableNewArrayBtn() {
+  document.querySelector(".newArray").disabled = true;
 }
 
-function enableNewArrayBtn(){
-    document.querySelector(".newArray").disabled = false;
+function enableNewArrayBtn() {
+  document.querySelector(".newArray").disabled = false;
 }
 
-function waitforme(milisec){
-
-    return new Promise(resolve => {
-
-        setTimeout(async () => {
-
-            while(pauseSorting){
-                await new Promise(r => setTimeout(r,100));
-            }
-
-            resolve('');
-
-        }, milisec);
-
-    });
+function waitforme(milisec) {
+  return new Promise((resolve) => {
+    setTimeout(async () => {
+      while (pauseSorting) {
+        await new Promise((r) => setTimeout(r, 100));
+      }
+      resolve("");
+    }, milisec);
+  });
 }
 
-let arraySize = document.querySelector('#arr_sz');
+let arraySize = document.querySelector("#arr_sz");
 let delay = 260;
 
-let delayElement = document.querySelector('#speed_input');
+let delayElement = document.querySelector("#speed_input");
 
-delayElement.addEventListener('input', function(){
-
-    delay = 320 - parseInt(delayElement.value);
-
+delayElement.addEventListener("input", function () {
+  delay = 320 - parseInt(delayElement.value);
 });
 
 createNewArray();
 
-arraySize.addEventListener('input', function(){
-
-    createNewArray(parseInt(arraySize.value));
-
+arraySize.addEventListener("input", function () {
+  createNewArray(parseInt(arraySize.value));
 });
 
-function createNewArray(noOfBars = 60){
+function createNewArray(noOfBars = 60) {
+  stopSorting = true;
 
-    stopSorting = true;
+  deleteChild();
 
-    deleteChild();
+  array = [];
+  originalArray = [];
 
-    array = [];
-    originalArray = [];
+  const bars = document.querySelector("#bars");
 
-    for(let i=0;i<noOfBars;i++){
+  for (let i = 0; i < noOfBars; i++) {
+    let value = Math.floor(Math.random() * 250) + 10;
 
-        let value = Math.floor(Math.random()*250)+1;
+    array.push(value);
+    originalArray.push(value);
 
-        array.push(value);
-        originalArray.push(value);
-    }
+    const bar = document.createElement("div");
 
-    const bars = document.querySelector("#bars");
+    bar.classList.add("bar");
 
-    for(let i=0;i<noOfBars;i++){
+    bar.style.height = value * 2 + "px";
 
-        const bar = document.createElement("div");
+    bars.appendChild(bar);
+  }
 
-        bar.style.height = `${array[i]*2}px`;
-
-        bar.classList.add('bar');
-        bar.classList.add('flex-item');
-        bar.classList.add(`barNo${i}`);
-
-        bars.appendChild(bar);
-    }
-
-    resetCounters();
+  resetCounters();
 }
 
-function deleteChild(){
+function deleteChild() {
+  const bar = document.querySelector("#bars");
 
-    const bar = document.querySelector("#bars");
-    bar.innerHTML = '';
+  while (bar.firstChild) {
+    bar.removeChild(bar.firstChild);
+  }
 }
 
 const newArray = document.querySelector(".newArray");
 
-newArray.addEventListener("click",function(){
+newArray.addEventListener("click", function () {
+  enableSortingBtn();
+  enableSizeSlider();
 
-    enableSortingBtn();
-    enableSizeSlider();
-
-    createNewArray(arraySize.value);
-
+  createNewArray(arraySize.value);
 });
 
-function resetArray(){
+function resetArray() {
+  stopSorting = true;
+  pauseSorting = false;
 
-    stopSorting = true;
-    pauseSorting = false;
+  deleteChild();
 
-    deleteChild();
+  const bars = document.querySelector("#bars");
 
-    const bars = document.querySelector("#bars");
+  for (let i = 0; i < originalArray.length; i++) {
+    const bar = document.createElement("div");
 
-    for(let i=0;i<originalArray.length;i++){
+    bar.classList.add("bar");
 
-        const bar = document.createElement("div");
+    bar.style.height = originalArray[i] * 2 + "px";
 
-        bar.style.height = `${originalArray[i]*2}px`;
+    bars.appendChild(bar);
+  }
 
-        bar.classList.add('bar');
-        bar.classList.add('flex-item');
-        bar.classList.add(`barNo${i}`);
-
-        bars.appendChild(bar);
-    }
-
-    resetCounters();
+  resetCounters();
 }
 
 const resetBtn = document.querySelector(".resetArray");
 
-resetBtn.addEventListener("click",function(){
+resetBtn.addEventListener("click", function () {
+  enableSortingBtn();
+  enableSizeSlider();
 
-    enableSortingBtn();
-    enableSizeSlider();
-
-    resetArray();
-
+  resetArray();
 });
 
 const pauseBtn = document.querySelector(".pauseBtn");
 
-pauseBtn.addEventListener("click",function(){
-
-    pauseSorting = true;
-
+pauseBtn.addEventListener("click", function () {
+  pauseSorting = true;
 });
 
 const resumeBtn = document.querySelector(".resumeBtn");
 
-resumeBtn.addEventListener("click",function(){
-
-    pauseSorting = false;
-
+resumeBtn.addEventListener("click", function () {
+  pauseSorting = false;
 });
