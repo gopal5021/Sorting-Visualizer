@@ -27,8 +27,9 @@ async function insertion(){
 
                 await waitforme(delay);
             }
-            else
+            else{
                 break;
+            }
         }
 
         ele[j+1].style.height = key;
@@ -48,11 +49,6 @@ inSortbtn.addEventListener('click', async function(){
     "Current Algorithm: Insertion Sort";
 
     resetCounters();
-
-    let ele = document.querySelectorAll(".bar");
-    setExpectedComparisons(ele.length * Math.log2(ele.length));
-
-    setTotalOperations(ele.length * ele.length);
 
     disableSortingBtn();
     disableSizeSlider();

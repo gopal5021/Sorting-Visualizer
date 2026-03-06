@@ -49,11 +49,6 @@ selectionSortbtn.addEventListener('click', async function(){
 
     resetCounters();
 
-    let ele = document.querySelectorAll(".bar");
-    setExpectedComparisons(ele.length * ele.length);
-
-    setTotalOperations(ele.length * ele.length);
-
     disableSortingBtn();
     disableSizeSlider();
     disableNewArrayBtn();
