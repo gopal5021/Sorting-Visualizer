@@ -1,11 +1,17 @@
-/* GLOBAL PAGE STYLE */
+/* RESET */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  }
+
+/* PAGE */
 
 body {
 background-color: #0f172a;
 font-family: Arial, Helvetica, sans-serif;
 color: white;
-margin: 0;
-padding: 0;
 }
 
 /* HEADER */
@@ -16,10 +22,9 @@ padding: 15px;
 text-align: center;
 font-size: 24px;
 font-weight: bold;
-letter-spacing: 1px;
 }
 
-/* CONTROL PANEL */
+/* CONTROLS */
 
 .controls {
 display: flex;
@@ -31,7 +36,7 @@ padding: 15px;
 background: #111827;
 }
 
-/* BUTTON STYLE */
+/* BUTTON */
 
 button {
 padding: 8px 14px;
@@ -41,12 +46,10 @@ background: #2563eb;
 color: white;
 font-size: 14px;
 cursor: pointer;
-transition: all 0.2s ease;
 }
 
 button:hover {
 background: #1d4ed8;
-transform: translateY(-1px);
 }
 
 button:disabled {
@@ -60,11 +63,11 @@ input[type="range"] {
 cursor: pointer;
 }
 
-/* SORTING CONTAINER */
+/* ARRAY CONTAINER */
 
 .data-container {
 width: 100%;
-height: 75vh;
+height: 70vh;
 display: flex;
 align-items: flex-end;
 justify-content: center;
@@ -72,57 +75,51 @@ gap: 3px;
 padding: 20px;
 }
 
-/* BARS */
+/* ARRAY BARS */
 
 .bar {
-width: 8px;
-margin: 0 1px;
-background: linear-gradient(180deg, #4facfe, #00f2fe);
-border-radius: 3px;
-transition: height 0.25s ease, background 0.25s ease;
+width: 6px;
+background: #38bdf8;
+border-radius: 2px;
+transition: height 0.25s ease;
 }
 
-/* COMPARISON COLOR */
+/* COMPARISON */
 
 .bar.compare {
 background: #facc15;
 }
 
-/* SWAP COLOR */
+/* SWAP */
 
 .bar.swap {
 background: #ef4444;
 }
 
-/* SORTED COLOR */
+/* SORTED */
 
 .bar.sorted {
 background: #22c55e;
 }
 
-/* QUICK SORT PIVOT */
+/* PIVOT */
 
 .bar.pivot {
 background: #a855f7;
 }
 
-/* INFORMATION PANEL */
+/* INFO PANEL */
 
 .info {
 text-align: center;
 padding: 10px;
-font-size: 15px;
 }
-
-/* ALGORITHM NAME */
 
 #algoName {
 font-size: 18px;
 font-weight: bold;
 color: #38bdf8;
 }
-
-/* COUNTER TEXT */
 
 .counter {
 margin-top: 5px;
@@ -134,7 +131,7 @@ font-size: 14px;
 @media (max-width: 768px) {
 
 .bar {
-    width: 5px;
+    width: 4px;
 }
 
 header {
